@@ -31,8 +31,8 @@ sudo dnf install gcc libXcursor-devel libXrandr-devel mesa-libGL-devel libXi-dev
 
 ### 1. Clone the repository
 ```bash
-git clone <your-repo-url>
-cd <your-repo-name>
+git clone git@github.com:EQArchives/eqemu-password-hasher.git
+cd eqemu-password-hasher/
 ```
 
 ### 2. Install dependencies
