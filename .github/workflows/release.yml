@@ -43,6 +43,19 @@ jobs:
     - name: Package app
       run: fyne package -os ${{ matrix.platform }} -icon Icon.png
 
+    - name: Sign macOS app (ad-hoc)
+      if: runner.os == 'macOS'
+      run: |
+        APP_NAME=$(ls -d *.app | head -n 1)
+        if [ -n "$APP_NAME" ]; then
+          # Remove existing signature
+          codesign --remove-signature "$APP_NAME"
+          # Sign with ad-hoc signature
+          codesign --force --deep --sign - "$APP_NAME"
+          # Verify it worked
+          codesign --verify --verbose "$APP_NAME"
+        fi
+
     - name: Prepare Windows artifact
       if: runner.os == 'Windows'
       run: |
@@ -54,7 +67,6 @@ jobs:
     - name: Prepare macOS artifact
       if: runner.os == 'macOS'
       run: |
-        # Find the .app bundle and create a zip
         APP_NAME=$(ls -d *.app | head -n 1)
         if [ -n "$APP_NAME" ]; then
           zip -r "EQEmu-Password-Hasher-macOS.zip" "$APP_NAME"
@@ -63,7 +75,6 @@ jobs:
     - name: Prepare Linux artifact
       if: runner.os == 'Linux'
       run: |
-        # Find the tar.xz file
         TAR_FILE=$(ls *.tar.xz | head -n 1)
         if [ -n "$TAR_FILE" ]; then
           mv "$TAR_FILE" "EQEmu-Password-Hasher-Linux.tar.xz"
