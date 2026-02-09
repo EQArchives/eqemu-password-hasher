@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+            arch: amd64
+          - os: macos-latest
+            platform: darwin
+            arch: universal
+          - os: windows-latest
+            platform: windows
+            arch: amd64
+    
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.21'
+
+    - name: Install Linux dependencies
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc libgl1-mesa-dev xorg-dev
+
+    - name: Install fyne CLI
+      run: go install fyne.io/fyne/v2/cmd/fyne@latest
+
+    - name: Package app
+      run: fyne package -os ${{ matrix.platform }} -icon Icon.png
+
+    - name: Get artifact name
+      id: artifact
+      shell: bash
+      run: |
+        if [ "${{ matrix.platform }}" = "windows" ]; then
+          echo "name=$(ls *.exe | head -n 1)" >> $GITHUB_OUTPUT
+        elif [ "${{ matrix.platform }}" = "darwin" ]; then
+          echo "name=$(ls *.app | head -n 1)" >> $GITHUB_OUTPUT
+        else
+          echo "name=$(ls *.tar.xz | head -n 1)" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ steps.artifact.outputs.name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
