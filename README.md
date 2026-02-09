@@ -1,6 +1,8 @@
 # eqemu-password-hasher
 Generate and Verify Password Hashes for TAKP and PEQ Accounts
 
+<img width="699" height="596" alt="Screenshot 2026-02-08 at 8 36 37 PM" src="https://github.com/user-attachments/assets/28dd0a23-9bd1-495e-b36e-f9947a102f03" />
+
 ## Prerequisites
 
 - Go 1.21 or higher
