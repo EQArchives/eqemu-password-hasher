@@ -10,9 +10,9 @@ Generate and Verify Password Hashes for TAKP and PEQ Accounts
 ## Download
 
 **Latest stable release:**
-- [Windows](https://github.com/EQArchives/eqemu-password-hasher/releases/latest/download/eqemu-password-hasher.exe)
-- [macOS](https://github.com/EQArchives/eqemu-password-hasher/releases/latest/download/eqemu-password-hasher.app)
-- [Linux](https://github.com/EQArchives/eqemu-password-hasher/releases/latest/download/eqemu-password-hasher.tar.xz)
+- [Windows](https://github.com/EQArchives/eqemu-password-hasher/releases/download/v1.0.0/EQEmu.Password.Hasher.exe)
+- [macOS](https://github.com/EQArchives/eqemu-password-hasher/releases/download/v1.0.0/eqemu-password-hasher.app)
+- [Linux](https://github.com/EQArchives/eqemu-password-hasher/releases/download/v1.0.0/eqemu-password-hasher.tar.xz)
 
 [View all releases](https://github.com/EQArchives/eqemu-password-hasher/releases)
 
