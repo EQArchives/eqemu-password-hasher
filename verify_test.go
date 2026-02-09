@@ -51,37 +51,6 @@ func testHashVector(t *testing.T, label, password, fullHash string) {
 	}
 }
 
-// verifySCrypt replicates libsodium's crypto_pwhash_scryptsalsa208sha256_str_verify
-func verifySCrypt(storedHash, password string) bool {
-	if len(storedHash) < 14 || storedHash[:3] != "$7$" {
-		return false
-	}
-
-	// Find the salt/hash separator (last $)
-	lastDollar := -1
-	for i := len(storedHash) - 1; i >= 0; i-- {
-		if storedHash[i] == '$' {
-			lastDollar = i
-			break
-		}
-	}
-	if lastDollar <= 3 {
-		return false
-	}
-
-	// Extract encoded salt (after the 14-char prefix, before the last $)
-	encodedSalt := storedHash[14:lastDollar]
-	expectedDK := storedHash[lastDollar+1:]
-
-	// Recompute with same params
-	dk, err := scrypt.Key([]byte(password), []byte(encodedSalt), 16384, 8, 1, 32)
-	if err != nil {
-		return false
-	}
-
-	return encode64Bytes(dk) == expectedDK
-}
-
 func TestSCryptVector(t *testing.T) {
 	password := "Yawgmoth69!!??"
 
