@@ -1,2 +1,87 @@
 # eqemu-password-hasher
 Generate and Verify Password Hashes for TAKP and PEQ Accounts
+
+## Prerequisites
+
+- Go 1.21 or higher
+- Fyne dependencies (see [Fyne Getting Started](https://developer.fyne.io/started/))
+
+### Platform-specific dependencies
+
+**macOS:**
+```bash
+# Xcode command line tools
+xcode-select --install
+```
+
+**Linux:**
+```bash
+# Ubuntu/Debian
+sudo apt-get install gcc libgl1-mesa-dev xorg-dev
+
+# Fedora/RHEL
+sudo dnf install gcc libXcursor-devel libXrandr-devel mesa-libGL-devel libXi-devel libXinerama-devel libXxf86vm-devel
+```
+
+**Windows:**
+- Install [Go for Windows](https://golang.org/dl/)
+- GCC via [TDM-GCC](https://jmeubank.github.io/tdm-gcc/) or [MSYS2](https://www.msys2.org/)
+
+## Quick Start
+
+### 1. Clone the repository
+```bash
+git clone <your-repo-url>
+cd <your-repo-name>
+```
+
+### 2. Install dependencies
+```bash
+go mod download
+```
+
+### 3. Run the app
+```bash
+go run .
+```
+
+### 4. Build the app
+```bash
+# Build for current platform
+go build -o myapp
+
+# Or use fyne package for a distributable app
+go install fyne.io/fyne/v2/cmd/fyne@latest
+fyne package -icon Icon.png
+```
+
+### Cross-compile for other platforms (optional)
+```bash
+# Install fyne-cross
+go install github.com/fyne-io/fyne-cross@latest
+
+# Build for specific platforms
+fyne-cross windows -arch=amd64
+fyne-cross darwin -arch=amd64,arm64
+fyne-cross linux -arch=amd64
+```
+
+Binaries will be in `fyne-cross/dist/`.
+
+## Testing
+```bash
+go test ./...
+```
+
+## Development
+```bash
+# Run tests with coverage
+go test -cover ./...
+
+# Run with hot reload (install air first)
+go install github.com/cosmtrek/air@latest
+air
+```
+
+## License
+[MIT]
