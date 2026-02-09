@@ -17,6 +17,26 @@ Download the latest release for your platform:
 
 [View all releases](https://github.com/EQArchives/eqemu-password-hasher/releases) | [Release notes](https://github.com/EQArchives/eqemu-password-hasher/releases/latest)
 
+### macOS Installation
+
+After downloading, macOS will block the app because it's not from the App Store.
+
+**To allow the app to run:**
+
+1. **Right-click** (or Control+click) on `EQEmu Password Hasher.app`
+2. Select **"Open"**
+3. Click **"Open"** in the warning dialog
+
+**Alternative method (if right-click doesn't work):**
+
+Open Terminal and run:
+```bash
+xattr -cr ~/Downloads/EQEmu\ Password\ Hasher.app
+```
+
+Then double-click the app to launch it.
+
+
 ## Prerequisites
 
 - Go 1.21 or higher
